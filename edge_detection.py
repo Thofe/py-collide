@@ -7,7 +7,9 @@ pygame.init()
 
 
 # Window
-SIZE = (800, 600)
+SCREEN_W = 800
+SCREEN_H = 600
+SIZE = (SCREEN_W, SCREEN_H)
 TITLE = "Edge Detection"
 screen = pygame.display.set_mode(SIZE)
 pygame.display.set_caption(TITLE)
@@ -20,7 +22,7 @@ refresh_rate = 60
 
 # Colors
 RED = (255, 0, 0)
-WHITE = (255, 255, 255)
+WHITE = (255, 255 , 255)
 BLACK = (0, 0, 0)
 
     
@@ -79,11 +81,22 @@ while not done:
     block[1] += block_v_y
 
     ''' get block edges (makes collision resolution easier to read) '''
-
+    top = block[1]
+    bottom = block[1]+block[3]
+    left= block[0]
+    right=block[0]+block[2]
     
     if case == 1:
         ''' if the block is moved out of the window, nudge it back on. '''
-        pass
+        if top < 0:
+            block[1] = 0
+        elif bottom > SCREEN_H:
+            block[1] = SCREEN_H - block[3]
+
+        if left < 0:
+            block[0] = 0
+        elif right > SCREEN_W:
+            block[0] = SCREEN_W - block[2]
 
     
     elif case == 2:
